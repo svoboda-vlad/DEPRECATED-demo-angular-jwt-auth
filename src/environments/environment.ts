@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  SERVER_URL: 'https://test-spring-boot-jwt-auth.herokuapp.com/'
+  SERVER_URL: 'http://localhost:8080/'
 };
 
 /*
