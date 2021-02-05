@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,32 +12,16 @@ export class HelloService {
 
   constructor(private http: HttpClient) { }
 
-  getHellos(jwtToken: string) : Observable<Hello[]> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.get<Hello[]>(environment.SERVER_URL + this.helloUrl, options);
+  getHello() : Observable<Hello> {
+    return this.http.get<Hello>(environment.SERVER_URL + this.helloUrl);
   }
-
-  postHello(hello: Hello, jwtToken: string) : Observable<Hello> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.post<Hello>(environment.SERVER_URL + this.helloUrl, hello, options);
-  }
-
 
 }
 
 export class Hello {
-  id: number;
-  content: string;
+  text: string;
 
-  constructor(content: string) {
-    this.content = content;
+  constructor(text: string) {
+    this.text = text;
   }
 }
