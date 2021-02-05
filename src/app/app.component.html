@@ -1,16 +1,2 @@
-<h3 class="m-2">Demo - Angular with JWT authentication</h3>
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
-  <li [ngbNavItem]="1">
-    <a routerLink="/hello" ngbNavLink>Hello</a>
-  </li>
-  <li [ngbNavItem]="2" [disabled]="disabled">
-    <a routerLink="/login" ngbNavLink>Login</a>
-  </li>
-  <li [ngbNavItem]="3">
-    <a routerLink="/note" ngbNavLink>Note</a>
-  </li>
-  <li [ngbNavItem]="4" [disabled]="disabled">
-    <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
-  </li>
-</ul>
+<daja-navbar></daja-navbar>
 <router-outlet></router-outlet>

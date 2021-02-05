@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "taja",
+      "prefix": "daja",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
