@@ -1,0 +1,17 @@
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
+  <li [ngbNavItem]="0">
+    <a routerLink="/" ngbNavLink>Home</a>
+  </li>
+  <li [ngbNavItem]="1">
+    <a routerLink="/hello" ngbNavLink>Hello</a>
+  </li>
+  <li [ngbNavItem]="2" [disabled]="disabled">
+    <a routerLink="/login" ngbNavLink>Login</a>
+  </li>
+  <li [ngbNavItem]="3" [disabled]="disabled">
+    <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
+  </li>
+  <li [ngbNavItem]="4">
+    <a routerLink="/note" ngbNavLink>Note (restricted)</a>
+  </li>
+</ul>

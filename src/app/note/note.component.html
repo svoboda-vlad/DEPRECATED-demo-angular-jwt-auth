@@ -1,4 +1,4 @@
-<div class="m-2">
+<div class="m-2" *ngIf="notes$ | async as notes; else loadingOrError">
   <p>Notes</p>
   <div class="table-responsive">
     <table class="table table-sm">
@@ -17,3 +17,12 @@
     </table>
   </div>
 </div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+      <div class="alert alert-danger">ERROR</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
