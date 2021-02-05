@@ -1,0 +1,19 @@
+<div class="m-2">
+  <p>Notes</p>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Content</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let note of notes">
+        <td>{{ note.id }}</td>
+        <td>{{ note.content }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
