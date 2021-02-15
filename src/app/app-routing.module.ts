@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'note',
     loadChildren: () => import('./note/note.module').then(m => m.NoteModule)
+  },
+  {
+    path: 'hello-restricted',
+    loadChildren: () => import('./hello-restricted/hello-restricted.module').then(m => m.HelloRestrictedModule)
   }];
 
 @NgModule({
