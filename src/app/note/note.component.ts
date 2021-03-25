@@ -19,7 +19,7 @@ export class NoteComponent implements OnInit {
 
   ngOnInit(): void {
       this.jwtToken = this.loginService.getJwtToken();
-      this.notes$ = this.noteService.getNotes(this.jwtToken).pipe(
+      this.notes$ = this.noteService.getNotes().pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);

@@ -15,11 +15,10 @@ export class HelloRestrictedComponent implements OnInit {
   hello$: Observable<Hello> = null;
   error: Object = null;
 
-  constructor(private loginService: LoginService, private helloService: HelloService) { }
+  constructor(private helloService: HelloService) { }
 
   ngOnInit(): void {
-      this.jwtToken = this.loginService.getJwtToken();
-      this.hello$ = this.helloService.getHelloRestricted(this.jwtToken).pipe(
+      this.hello$ = this.helloService.getHelloRestricted().pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);

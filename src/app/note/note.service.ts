@@ -11,22 +11,12 @@ export class NoteService {
 
   constructor(private http: HttpClient) { }
 
-  getNotes(jwtToken: string) : Observable<Note[]> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.get<Note[]>(environment.SERVER_URL + this.noteUrl, options);
+  getNotes() : Observable<Note[]> {
+    return this.http.get<Note[]>(environment.SERVER_URL + this.noteUrl);
   }
 
-  postNote(note: Note, jwtToken: string) : Observable<Note> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.post<Note>(environment.SERVER_URL + this.noteUrl, note, options);
+  postNote(note: Note) : Observable<Note> {
+    return this.http.post<Note>(environment.SERVER_URL + this.noteUrl, note);
   }
 
 

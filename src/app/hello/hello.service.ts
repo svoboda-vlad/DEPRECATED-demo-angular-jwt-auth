@@ -17,13 +17,8 @@ export class HelloService {
     return this.http.get<Hello>(environment.SERVER_URL + this.helloUrl);
   }
 
-  getHelloRestricted(jwtToken: string) : Observable<Hello> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.get<Hello>(environment.SERVER_URL + this.helloRestrictedUrl, options);
+  getHelloRestricted() : Observable<Hello> {
+    return this.http.get<Hello>(environment.SERVER_URL + this.helloRestrictedUrl);
   }
 
 }
