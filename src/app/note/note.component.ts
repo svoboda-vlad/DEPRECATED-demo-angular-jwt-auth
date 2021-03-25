@@ -18,20 +18,13 @@ export class NoteComponent implements OnInit {
   constructor(private loginService: LoginService, private noteService: NoteService) { }
 
   ngOnInit(): void {
-    this.loginService.login(new User('user', 'password')).pipe(
-      catchError(err => {
-        this.error = err;
-        return throwError(err);
-      })
-    ).subscribe((res) => {
-      this.jwtToken = res.headers.get('Authorization');
+      this.jwtToken = this.loginService.getJwtToken();
       this.notes$ = this.noteService.getNotes(this.jwtToken).pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);
         })
       );
-    });
   }
 
 }

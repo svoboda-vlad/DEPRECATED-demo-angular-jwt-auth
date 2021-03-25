@@ -18,20 +18,13 @@ export class HelloRestrictedComponent implements OnInit {
   constructor(private loginService: LoginService, private helloService: HelloService) { }
 
   ngOnInit(): void {
-    this.loginService.login(new User('user', 'password')).pipe(
-      catchError(err => {
-        this.error = err;
-        return throwError(err);
-      })
-    ).subscribe((res) => {
-      this.jwtToken = res.headers.get('Authorization');
+      this.jwtToken = this.loginService.getJwtToken();
       this.hello$ = this.helloService.getHelloRestricted(this.jwtToken).pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);
         })
       );
-    });
   }
 
 }

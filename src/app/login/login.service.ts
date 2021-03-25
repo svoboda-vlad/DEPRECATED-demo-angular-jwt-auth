@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,12 +10,20 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
 
   loginUrl = "login";
+  authorizationHeader = "Authorization";
+  jwtKey = "jwt";
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): any {
-    return this.http.post(environment.SERVER_URL + this.loginUrl, user, { observe: 'response' });
+  login(user: User): Observable<void> {
+    return this.http.post(environment.SERVER_URL + this.loginUrl, user, { observe: 'response' })
+    .pipe(map(res => localStorage.setItem(this.jwtKey, res.headers.get(this.authorizationHeader))));
   }
+
+  getJwtToken(): string {
+    return localStorage.getItem(this.jwtKey);
+  }
+
 }
 
 export class User {
