@@ -1,3 +1,5 @@
+<h3 class="m-2">Demo - Angular with JWT authentication</h3>
+
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
   <li [ngbNavItem]="0">
     <a routerLink="/" ngbNavLink>Home</a>
@@ -6,12 +8,25 @@
     <a routerLink="/hello" ngbNavLink>Hello</a>
   </li>
   <li [ngbNavItem]="2">
-    <a routerLink="/login" ngbNavLink>Login</a>
-  </li>
-  <li [ngbNavItem]="3">
     <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
   </li>
-  <li [ngbNavItem]="4">
+  <li [ngbNavItem]="3">
     <a routerLink="/note" ngbNavLink>Note (restricted)</a>
   </li>
+  <li [ngbNavItem]="4">
+    <a routerLink="/login" ngbNavLink>Login</a>
+  </li>
 </ul>
+
+<div class="m-2 alert-success" *ngIf="userInfo$ | async as userInfo; else loadingOrError">
+  Logged in as user "{{ userInfo.username }}".
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-warning">NOT LOGGED IN</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

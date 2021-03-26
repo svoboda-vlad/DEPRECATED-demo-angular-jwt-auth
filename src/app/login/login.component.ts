@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         () => {
           this.loginError = false;
-          this.router.navigate(['']);
+          location.reload();
         },
         () => (this.loginError = true)
       );
