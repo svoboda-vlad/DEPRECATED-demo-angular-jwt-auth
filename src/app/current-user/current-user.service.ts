@@ -9,23 +9,26 @@ import { map } from 'rxjs/operators';
 })
 export class CurrentUserService {
 
-  currentUserUrl = 'current-user';
-  currentUser: UserInfo = null;
+  private currentUserUrl = 'current-user';
+  private currentUser: UserInfo = null;
 
   constructor(private http: HttpClient) { }
 
-  getCurrentUser(jwtToken: string) : Observable<UserInfo> {
+  getCurrentUser() : Observable<UserInfo> {
     if (this.currentUser) {
       return of(this.currentUser);
     }
 
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.get<UserInfo>(environment.SERVER_URL + this.currentUserUrl, options)
+    return this.http.get<UserInfo>(environment.SERVER_URL + this.currentUserUrl)
     .pipe(map(res => this.currentUser = res));
+  }
+
+  isLoggedIn(): boolean {
+    return this.currentUser !== null;
+  }
+
+  logOut(): void {
+    this.currentUser = null;
   }
 
 }

@@ -24,6 +24,10 @@ export class LoginService {
     return localStorage.getItem(this.jwtKey);
   }
 
+  logOut(): void {
+    localStorage.removeItem(this.jwtKey);
+  }
+
 }
 
 export class User {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CurrentUserService, UserInfo } from '../current-user/current-user.service';
@@ -13,18 +14,23 @@ export class NavbarComponent implements OnInit {
   active = 0;
   disabled = true;
   userInfo$: Observable<UserInfo> = null;
-  error: Object = null;
 
-  constructor(private loginService: LoginService, private currentUserService: CurrentUserService) { }
+  constructor(private loginService: LoginService, 
+    private currentUserService: CurrentUserService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    const jwtToken = this.loginService.getJwtToken();
-    this.userInfo$ = this.currentUserService.getCurrentUser(jwtToken)
-    .pipe(
-      catchError(err => {
-        this.error = err;
-        return throwError(err)
-      }));
+    this.userInfo$ = this.currentUserService.getCurrentUser();
+  }
+
+  isLoggedIn(): boolean {
+    return this.currentUserService.isLoggedIn();
+  }
+
+  logout(): void {
+    this.loginService.logOut();
+    this.currentUserService.logOut();
+    location.reload();
   }
 
 }
