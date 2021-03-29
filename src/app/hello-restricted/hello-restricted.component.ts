@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Hello, HelloService } from '../hello/hello.service';
-import { LoginService, User } from '../login/login.service';
 
 @Component({
   selector: 'daja-hello-restricted',

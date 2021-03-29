@@ -15,7 +15,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<void> {
+  logIn(user: User): Observable<void> {
     return this.http.post(environment.SERVER_URL + this.loginUrl, user, { observe: 'response' })
     .pipe(map(res => localStorage.setItem(this.jwtKey, res.headers.get(this.authorizationHeader))));
   }

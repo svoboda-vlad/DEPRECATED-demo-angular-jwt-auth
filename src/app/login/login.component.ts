@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.loginForm.get('password')!.value
     );
     this.loginService
-      .login(user)
+      .logIn(user)
       .subscribe(
         () => {
           this.loginError = false;

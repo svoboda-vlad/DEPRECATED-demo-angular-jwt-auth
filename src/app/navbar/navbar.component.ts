@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { CurrentUserService, UserInfo } from '../current-user/current-user.service';
 import { LoginService } from '../login/login.service';
 
@@ -15,9 +13,8 @@ export class NavbarComponent implements OnInit {
   disabled = true;
   userInfo$: Observable<UserInfo> = null;
 
-  constructor(private loginService: LoginService, 
-    private currentUserService: CurrentUserService,
-    private router: Router) { }
+  constructor(private loginService: LoginService,
+    private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
     this.userInfo$ = this.currentUserService.getCurrentUser();

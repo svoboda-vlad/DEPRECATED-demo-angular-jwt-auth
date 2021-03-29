@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { LoginService, User } from '../login/login.service';
+import { LoginService } from '../login/login.service';
 import { Note, NoteService } from './note.service';
 import { catchError } from 'rxjs/operators';
 
