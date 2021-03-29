@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login(): void {
+  logIn(): void {
     const user: User = new User(
       this.loginForm.get('username')!.value,
       this.loginForm.get('password')!.value
