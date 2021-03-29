@@ -1,1 +1,6 @@
 <p class="m-2">Home page</p>
+<div class="m-2 alert-success" *ngIf="isLoggedIn()">
+  Logged in as user "{{ userInfo.username }}".
+</div>
+
+<div *ngIf="!isLoggedIn()" class="alert alert-warning">NOT LOGGED IN</div>

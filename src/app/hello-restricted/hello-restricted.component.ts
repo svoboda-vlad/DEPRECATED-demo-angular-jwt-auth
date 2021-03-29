@@ -10,7 +10,6 @@ import { Hello, HelloService } from '../hello/hello.service';
 })
 export class HelloRestrictedComponent implements OnInit {
 
-  jwtToken: string;
   hello$: Observable<Hello> = null;
   error: Object = null;
 

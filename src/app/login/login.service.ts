@@ -15,7 +15,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  logIn(user: User): Observable<void> {
+  logIn(user: LoginCredentials): Observable<void> {
     return this.http.post(environment.SERVER_URL + this.loginUrl, user, { observe: 'response' })
     .pipe(map(res => localStorage.setItem(this.jwtKey, res.headers.get(this.authorizationHeader))));
   }
@@ -30,7 +30,7 @@ export class LoginService {
 
 }
 
-export class User {
+export class LoginCredentials {
   username: string;
   password: string;
 

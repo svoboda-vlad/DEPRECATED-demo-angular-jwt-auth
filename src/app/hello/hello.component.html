@@ -4,7 +4,7 @@
 
 <ng-template #loadingOrError>
   <ng-container *ngIf="error; else loading">
-      <div class="alert alert-danger">ERROR</div>
+      <div class="alert alert-danger">ERROR: {{ error }}</div>
   </ng-container>
   <ng-template #loading>
     <div>Loading ...</div>

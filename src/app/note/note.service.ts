@@ -19,7 +19,6 @@ export class NoteService {
     return this.http.post<Note>(environment.SERVER_URL + this.noteUrl, note);
   }
 
-
 }
 
 export class Note {

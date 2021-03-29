@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUserService, CurrentUser } from '../current-user/current-user.service';
 
 @Component({
   selector: 'daja-home',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  userInfo: CurrentUser = null;
+
+  constructor(private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
+    this.currentUserService.getCurrentUser().subscribe((res) => this.userInfo = res);
+  }
+
+  isLoggedIn(): boolean {
+    return this.currentUserService.isLoggedIn();
   }
 
 }

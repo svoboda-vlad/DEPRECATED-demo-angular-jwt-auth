@@ -15,14 +15,8 @@
   </li>
   <li [ngbNavItem]="4">
     <span [ngSwitch]="isLoggedIn()">
-      <a *ngSwitchCase="false" routerLink="/login" ngbNavLink>Log in</a>      
+      <a *ngSwitchCase="false" routerLink="/login" ngbNavLink>Log in</a>
       <a *ngSwitchDefault (click)="logout()" ngbNavLink>Log out</a>
     </span>
   </li>
 </ul>
-
-<div class="m-2 alert-success" *ngIf="userInfo$ | async as userInfo">
-  Logged in as user "{{ userInfo.username }}".
-</div>
-
-<div *ngIf="!isLoggedIn()" class="alert alert-warning">NOT LOGGED IN</div>

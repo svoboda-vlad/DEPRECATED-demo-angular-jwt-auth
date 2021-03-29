@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { LoginService, User } from './login.service';
+import { LoginService, LoginCredentials } from './login.service';
 import { Router } from '@angular/router';
+import { CurrentUserService } from '../current-user/current-user.service';
 
 @Component({
   selector: 'daja-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private loginService: LoginService) { }
+    private loginService: LoginService,
+    private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
     if(this.loginService.getJwtToken()) {
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   logIn(): void {
-    const user: User = new User(
+    const user: LoginCredentials = new LoginCredentials(
       this.loginForm.get('username')!.value,
       this.loginForm.get('password')!.value
     );
@@ -37,14 +39,14 @@ export class LoginComponent implements OnInit {
       .subscribe(
         () => {
           this.loginError = false;
-          location.reload();
+          this.currentUserService.getCurrentUser().subscribe(() => this.router.navigate(['']));
         },
         () => (this.loginError = true)
       );
   }
 
   useDefaultCredentials(): void {
-    const defaultUser: User = new User('user', 'password');
+    const defaultUser: LoginCredentials = new LoginCredentials('user', 'password');
     this.loginForm.patchValue({
       username: defaultUser.username,
       password: defaultUser.password
