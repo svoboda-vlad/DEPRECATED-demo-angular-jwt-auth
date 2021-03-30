@@ -16,12 +16,11 @@ export class HelloComponent implements OnInit {
   constructor(private helloService: HelloService) { }
 
   ngOnInit(): void {
-    this.hello$ = this.helloService.getHello().pipe(
-      catchError(err => {
-        this.error = err;
-        return throwError(err);
-      })
-    );;
+    this.hello$ = this.helloService.getHello()
+    .pipe(catchError(err => {
+      this.error = err;
+      return throwError(err);
+    }));
   }
 
 }

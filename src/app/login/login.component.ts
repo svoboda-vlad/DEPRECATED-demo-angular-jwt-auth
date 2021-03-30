@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
           this.loginError = false;
           this.currentUserService.getCurrentUser().subscribe(() => this.router.navigate(['']));
         },
-        () => (this.loginError = true)
+        () => this.loginError = true
       );
   }
 
