@@ -1,22 +1,24 @@
-<h3 class="m-2">Demo - Angular with JWT authentication</h3>
+<div class="m-2">
+  <h2>Demo - Angular with JWT authentication</h2>
 
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
-  <li [ngbNavItem]="0">
-    <a routerLink="/" ngbNavLink>Home</a>
-  </li>
-  <li [ngbNavItem]="1">
-    <a routerLink="/hello" ngbNavLink>Hello</a>
-  </li>
-  <li [ngbNavItem]="2" *ngIf="isLoggedIn()">
-    <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
-  </li>
-  <li [ngbNavItem]="3" *ngIf="isLoggedIn()">
-    <a routerLink="/note" ngbNavLink>Note (restricted)</a>
-  </li>
-  <li [ngbNavItem]="4">
-    <span [ngSwitch]="isLoggedIn()">
-      <a *ngSwitchCase="false" routerLink="/login" ngbNavLink>Log in</a>
-      <a *ngSwitchDefault (click)="logout()" ngbNavLink>Log out</a>
-    </span>
-  </li>
-</ul>
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
+    <li [ngbNavItem]="0">
+      <a routerLink="/" ngbNavLink>Home</a>
+    </li>
+    <li [ngbNavItem]="1">
+      <a routerLink="/hello" ngbNavLink>Hello</a>
+    </li>
+    <li [ngbNavItem]="2" *ngIf="isLoggedIn()">
+      <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
+    </li>
+    <li [ngbNavItem]="3" *ngIf="isLoggedIn()">
+      <a routerLink="/note" ngbNavLink>Note (restricted)</a>
+    </li>
+    <li [ngbNavItem]="4">
+      <span [ngSwitch]="isLoggedIn()">
+        <a *ngSwitchCase="false" routerLink="/login" ngbNavLink>Log in</a>
+        <a *ngSwitchDefault (click)="logout()" ngbNavLink>Log out</a>
+      </span>
+    </li>
+  </ul>
+</div>
