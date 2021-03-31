@@ -19,8 +19,9 @@ export class LoginService {
 
   logIn(user: LoginCredentials): Observable<void> {
     return this.http.post(environment.SERVER_URL + this.loginUrl, user, { observe: 'response' })
-    .pipe(map(res => localStorage.setItem(this.jwtKey, res.headers.get(this.authorizationHeader))),
-      catchError(this.errorResponseService.handleError));
+      .pipe(map(res => localStorage.setItem(this.jwtKey, res.headers.get(this.authorizationHeader))),
+        catchError(this.errorResponseService.handleError)
+      );
   }
 
   getJwtToken(): string {

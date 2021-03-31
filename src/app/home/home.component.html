@@ -1,4 +1,4 @@
 <p class="m-2">Home page</p>
-<div class="m-2 alert-success" *ngIf="isLoggedIn()">
-  Logged in as user "{{ (userInfo$ | async).username }}".
+<div class="m-2 alert-success" *ngIf="userInfo$ | async as userInfo">
+  Logged in as user "{{ userInfo.username }}".
 </div>

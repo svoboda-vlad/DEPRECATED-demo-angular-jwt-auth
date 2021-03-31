@@ -17,8 +17,4 @@ export class HomeComponent implements OnInit {
     this.userInfo$ = this.currentUserService.getCurrentUser();
   }
 
-  isLoggedIn(): boolean {
-    return this.currentUserService.isLoggedIn();
-  }
-
 }
