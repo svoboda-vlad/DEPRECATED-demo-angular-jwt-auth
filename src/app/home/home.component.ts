@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CurrentUserService, CurrentUser } from '../current-user/current-user.service';
 
 @Component({
@@ -8,12 +9,12 @@ import { CurrentUserService, CurrentUser } from '../current-user/current-user.se
 })
 export class HomeComponent implements OnInit {
 
-  userInfo: CurrentUser = null;
+  userInfo$: Observable<CurrentUser> = null;
 
   constructor(private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
-    this.currentUserService.getCurrentUser().subscribe((res) => this.userInfo = res);
+    this.userInfo$ = this.currentUserService.getCurrentUser();
   }
 
   isLoggedIn(): boolean {
