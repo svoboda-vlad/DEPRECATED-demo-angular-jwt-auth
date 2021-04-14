@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ErrorResponseService } from '../shared/error-response.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,26 +11,18 @@ import { environment } from 'src/environments/environment';
 export class NoteService {
   noteUrl = 'note';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private errorResponseService: ErrorResponseService) { }
 
-  getNotes(jwtToken: string) : Observable<Note[]> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.get<Note[]>(environment.SERVER_URL + this.noteUrl, options);
+  getNotes() : Observable<Note[]> {
+    return this.http.get<Note[]>(environment.SERVER_URL + this.noteUrl).pipe(
+      catchError(this.errorResponseService.handleError));
   }
 
-  postNote(note: Note, jwtToken: string) : Observable<Note> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: jwtToken
-      })
-    };
-    return this.http.post<Note>(environment.SERVER_URL + this.noteUrl, note, options);
+  postNote(note: Note) : Observable<Note> {
+    return this.http.post<Note>(environment.SERVER_URL + this.noteUrl, note).pipe(
+      catchError(this.errorResponseService.handleError));
   }
-
 
 }
 

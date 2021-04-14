@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'hello-restricted',
     loadChildren: () => import('./hello-restricted/hello-restricted.module').then(m => m.HelloRestrictedModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   }];
 
 @NgModule({

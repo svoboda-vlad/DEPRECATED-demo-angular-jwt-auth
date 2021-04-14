@@ -1,14 +1,6 @@
-<h3 class="m-2">Demo - Angular with JWT authentication</h3>
-
-  <div class="m-2" *ngIf="userInfo$ | async as userInfo; else loadingOrError">
+<div class="mb-2 p-3">
+  <h2>Home</h2>
+  <div class="alert-success" *ngIf="userInfo$ | async as userInfo">
     Logged in as user "{{ userInfo.username }}".
   </div>
-
-  <ng-template #loadingOrError>
-    <ng-container *ngIf="error; else loading">
-        <div class="alert alert-danger">NOT LOGGED IN</div>
-    </ng-container>
-    <ng-template #loading>
-      <div>Loading ...</div>
-    </ng-template>
-  </ng-template>
+</div>

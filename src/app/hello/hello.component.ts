@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LoginService, User } from '../login/login.service';
 import { Hello, HelloService } from './hello.service';
 
 @Component({
@@ -22,7 +21,7 @@ export class HelloComponent implements OnInit {
         this.error = err;
         return throwError(err);
       })
-    );;
+    );
   }
 
 }

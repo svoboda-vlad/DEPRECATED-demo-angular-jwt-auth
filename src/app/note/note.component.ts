@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { LoginService, User } from '../login/login.service';
 import { Note, NoteService } from './note.service';
 import { catchError } from 'rxjs/operators';
 
@@ -11,27 +10,18 @@ import { catchError } from 'rxjs/operators';
 })
 export class NoteComponent implements OnInit {
 
-  jwtToken: string;
   notes$: Observable<Note[]> = null;
   error: Object = null;
 
-  constructor(private loginService: LoginService, private noteService: NoteService) { }
+  constructor(private noteService: NoteService) { }
 
   ngOnInit(): void {
-    this.loginService.login(new User('user', 'password')).pipe(
-      catchError(err => {
-        this.error = err;
-        return throwError(err);
-      })
-    ).subscribe((res) => {
-      this.jwtToken = res.headers.get('Authorization');
-      this.notes$ = this.noteService.getNotes(this.jwtToken).pipe(
+      this.notes$ = this.noteService.getNotes().pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);
         })
       );
-    });
   }
 
 }
