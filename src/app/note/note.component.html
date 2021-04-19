@@ -1,33 +1,31 @@
-<div class="mb-2 p-3">
-  <h2>Notes</h2>
-  <div *ngIf="notes$ | async as notes; else loadingOrError" class="mb-2 p-3 bg-light">
-    <div class="table-responsive" *ngIf="notes.length > 0; else notFound">
-      <table class="table table-sm">
-        <thead>
-        <tr>
+<h2>Notes</h2>
+<div *ngIf="notes$ | async as notes; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="notes.length > 0; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
           <th scope="col">ID</th>
           <th scope="col">Content</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr *ngFor="let note of notes">
           <td>{{ note.id }}</td>
           <td>{{ note.content }}</td>
         </tr>
-        </tbody>
-      </table>
-    </div>
-    <ng-template #notFound>
-      <div class="alert alert-warning">No records found.</div>
-    </ng-template>
+      </tbody>
+    </table>
   </div>
-
-  <ng-template #loadingOrError>
-    <ng-container *ngIf="error; else loading">
-        <div class="alert alert-danger">{{ error }}</div>
-    </ng-container>
-    <ng-template #loading>
-      <div>Loading ...</div>
-    </ng-template>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No records found.</div>
   </ng-template>
 </div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

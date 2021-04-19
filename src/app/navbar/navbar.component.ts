@@ -9,7 +9,6 @@ import { LoginService } from '../login/login.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  active = 0;
 
   constructor(private loginService: LoginService,
     private currentUserService: CurrentUserService,

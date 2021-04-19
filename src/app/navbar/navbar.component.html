@@ -1,24 +1,32 @@
-<div class="m-2">
+<div class="p-3">
   <h2>Demo - Angular with JWT authentication</h2>
-
-  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-pills m-2">
-    <li [ngbNavItem]="0">
-      <a routerLink="/" ngbNavLink>Home</a>
-    </li>
-    <li [ngbNavItem]="1">
-      <a routerLink="/hello" ngbNavLink>Hello</a>
-    </li>
-    <li [ngbNavItem]="2" *ngIf="isLoggedIn()">
-      <a routerLink="/hello-restricted" ngbNavLink>Hello (restricted)</a>
-    </li>
-    <li [ngbNavItem]="3" *ngIf="isLoggedIn()">
-      <a routerLink="/note" ngbNavLink>Note (restricted)</a>
-    </li>
-    <li [ngbNavItem]="4">
-      <span [ngSwitch]="isLoggedIn()">
-        <a *ngSwitchCase="false" routerLink="/login" ngbNavLink>Log in</a>
-        <a *ngSwitchDefault (click)="logout()" ngbNavLink>Log out</a>
-      </span>
-    </li>
-  </ul>
 </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/hello" class="nav-link" routerLinkActive="active">Hello</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a routerLink="/hello-restricted" class="nav-link" routerLinkActive="active">Hello (restricted)</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a routerLink="/note" class="nav-link" routerLinkActive="active">Note (restricted)</a>
+        </li>
+        <li class="nav-item">
+          <span [ngSwitch]="isLoggedIn()">
+            <a *ngSwitchCase="false" routerLink="/login" class="nav-link" routerLinkActive="active">Log in</a>
+            <a *ngSwitchDefault (click)="logout()" class="nav-link" routerLinkActive="active">Log out</a>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
