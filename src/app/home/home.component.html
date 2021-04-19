@@ -1,6 +1,4 @@
-<div class="mb-2 p-3">
-  <h2>Home</h2>
-  <div class="alert-success" *ngIf="userInfo$ | async as userInfo">
-    Logged in as user "{{ userInfo.username }}".
-  </div>
+<h2>Home</h2>
+<div class="alert alert-success" *ngIf="userInfo$ | async as userInfo">
+  Logged in as user "{{ userInfo.username }}".
 </div>
