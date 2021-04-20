@@ -1,0 +1,39 @@
+<h2>Exchange Rates</h2>
+<div *ngIf="exchangeRates$ | async as exchangeRates; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="exchangeRates.length > 0; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">ID</th>
+          <th scope="col">Country</th>
+          <th scope="col">Currency Code</th>
+          <th scope="col">Rate Qty</th>
+          <th scope="col">Rate Date</th>
+          <th scope="col">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exchangeRate of exchangeRates">
+          <td>{{ exchangeRate.id }}</td>
+          <td>{{ exchangeRate.currencyCode.country }}</td>
+          <td>{{ exchangeRate.currencyCode.currencyCode }}</td>
+          <td>{{ exchangeRate.currencyCode.rateQty }}</td>
+          <td>{{ exchangeRate.rateDate }}</td>
+          <td>{{ exchangeRate.rate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No records found.</div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
