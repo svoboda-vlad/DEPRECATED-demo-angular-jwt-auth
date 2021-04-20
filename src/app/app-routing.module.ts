@@ -12,16 +12,20 @@ const routes: Routes = [
     loadChildren: () => import('./hello/hello.module').then(m => m.HelloModule)
   },
   {
-    path: 'note',
-    loadChildren: () => import('./note/note.module').then(m => m.NoteModule)
-  },
-  {
     path: 'hello-restricted',
     loadChildren: () => import('./hello-restricted/hello-restricted.module').then(m => m.HelloRestrictedModule)
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'currency-code',
+    loadChildren: () => import('./currency-code/currency-code.module').then(m => m.CurrencyCodeModule)
+  },
+  {
+    path: 'exchange-rate',
+    loadChildren: () => import('./exchange-rate/exchange-rate.module').then(m => m.ExchangeRateModule)
   }];
 
 @NgModule({

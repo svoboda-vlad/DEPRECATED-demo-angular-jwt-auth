@@ -18,7 +18,10 @@
           <a routerLink="/hello-restricted" class="nav-link" routerLinkActive="active">Hello (restricted)</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/note" class="nav-link" routerLinkActive="active">Note (restricted)</a>
+          <a routerLink="/currency-code" class="nav-link" routerLinkActive="active">Currency code</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a routerLink="/exchange-rate" class="nav-link" routerLinkActive="active">Exchange Rate</a>
         </li>
         <li class="nav-item">
           <span [ngSwitch]="isLoggedIn()">

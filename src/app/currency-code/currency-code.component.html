@@ -1,17 +1,21 @@
-<h2>Notes</h2>
-<div *ngIf="notes$ | async as notes; else loadingOrError">
-  <div class="table-responsive-sm" *ngIf="notes.length > 0; else notFound">
+<h2>Currency Codes</h2>
+<div *ngIf="currencyCodes$ | async as currencyCodes; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="currencyCodes.length > 0; else notFound">
     <table class="table table-sm">
       <thead>
         <tr class="table-secondary">
           <th scope="col">ID</th>
-          <th scope="col">Content</th>
+          <th scope="col">Currency Code</th>
+          <th scope="col">Country</th>
+          <th scope="col">Rate Qty</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let note of notes">
-          <td>{{ note.id }}</td>
-          <td>{{ note.content }}</td>
+        <tr *ngFor="let currencyCode of currencyCodes">
+          <td>{{ currencyCode.id }}</td>
+          <td>{{ currencyCode.currencyCode }}</td>
+          <td>{{ currencyCode.country }}</td>
+          <td>{{ currencyCode.rateQty }}</td>
         </tr>
       </tbody>
     </table>
