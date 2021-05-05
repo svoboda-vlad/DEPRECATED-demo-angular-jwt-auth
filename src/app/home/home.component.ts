@@ -9,12 +9,12 @@ import { CurrentUserService, CurrentUser } from '../current-user/current-user.se
 })
 export class HomeComponent implements OnInit {
 
-  userInfo$: Observable<CurrentUser> = null;
+  currentUser$: Observable<CurrentUser> = null;
 
   constructor(private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
-    this.userInfo$ = this.currentUserService.getCurrentUser();
+    this.currentUser$ = this.currentUserService.getCurrentUser();
   }
 
 }

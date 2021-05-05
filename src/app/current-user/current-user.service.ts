@@ -34,4 +34,6 @@ export class CurrentUserService {
 
 export class CurrentUser {
   username: string;
+  lastLoginDateTime: Date;
+  previousLoginDateTime: Date;
 }
