@@ -1,4 +1,5 @@
 <h2>Home</h2>
-<div class="alert alert-success" *ngIf="userInfo$ | async as userInfo">
-  Logged in as user "{{ userInfo.username }}".
+<div class="alert alert-success" *ngIf="currentUser$ | async as currentUser">
+  <div>Logged in as user "{{ currentUser.username }}".</div>
+  <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>
 </div>
