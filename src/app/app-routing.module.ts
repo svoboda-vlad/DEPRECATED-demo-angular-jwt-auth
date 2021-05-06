@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'exchange-rate',
     loadChildren: () => import('./exchange-rate/exchange-rate.module').then(m => m.ExchangeRateModule)
+  },
+  {
+    path: 'registration-user',
+    loadChildren: () => import('./registration-user/registration-user.module').then(m => m.RegistrationUserModule)
   }];
 
 @NgModule({

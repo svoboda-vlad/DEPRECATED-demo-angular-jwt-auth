@@ -1,0 +1,27 @@
+<h2>User Registration</h2>
+<div class="alert alert-danger" *ngIf="registrationUserError">
+  <strong>Failed to register!</strong> Please check your username and password.
+</div>
+<form class="form" (ngSubmit)="register()" [formGroup]="registrationUserForm">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" formControlName="username" />
+    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+      <div *ngIf="username.errors.required || username.errors.minlength || username.errors.maxlength">
+        Username must be between 1 and 50 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" formControlName="password" />
+    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+      <div *ngIf="password.errors.required || password.errors.minlength || password.errors.maxlength">
+        Password must be between 4 and 100 characters long.
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="registrationUserForm.invalid">Register</button>
+</form>

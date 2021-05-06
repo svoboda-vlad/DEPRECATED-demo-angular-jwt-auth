@@ -30,6 +30,9 @@
             <a *ngSwitchDefault (click)="logout()" class="nav-link" routerLinkActive="active">Log out</a>
           </span>
         </li>
+        <li class="nav-item" *ngIf="!isLoggedIn()">
+          <a routerLink="/registration-user" class="nav-link" routerLinkActive="active">User Registration</a>
+        </li>
       </ul>
     </div>
   </div>
