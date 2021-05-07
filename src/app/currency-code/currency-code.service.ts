@@ -24,6 +24,11 @@ export class CurrencyCodeService {
       catchError(this.errorResponseService.handleError));
   }
 
+  getCurrencyCode(id: number) : Observable<CurrencyCode> {
+    return this.http.get<CurrencyCode>(environment.SERVER_URL + this.currencyCodeUrl + "/" + id).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
 }
 
 export class CurrencyCode {

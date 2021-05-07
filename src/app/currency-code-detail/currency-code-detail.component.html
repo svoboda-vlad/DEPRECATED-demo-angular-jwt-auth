@@ -1,0 +1,46 @@
+<h2>Currency Code Detail</h2>
+<div *ngIf="currencyCode$ | async as currencyCode; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="currencyCode; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>{{ currencyCode.id }}</td>
+        </tr>
+        <tr>
+          <th>Currency Code</th>
+          <td>{{ currencyCode.currencyCode }}</td>
+        </tr>
+        <tr>
+          <th>Country</th>
+          <td>{{ currencyCode.country }}</td>
+        </tr>
+        <tr>
+          <th>Rate Qty</th>
+          <td>{{ currencyCode.rateQty }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No record found.</div>
+  </ng-template>
+  <div>
+    <button class="btn btn-primary" routerLink="/" disabled>Add Exchange Rate</button>
+  </div>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
