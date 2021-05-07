@@ -1,19 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService, LoginCredentials } from './login.service';
 import { Router } from '@angular/router';
 import { CurrentUserService } from '../current-user/current-user.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'daja-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginError = false;
-  loginSubscription: Subscription;
 
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
@@ -36,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginForm.get('username')!.value,
       this.loginForm.get('password')!.value
     );
-    this.loginSubscription = this.loginService
+    this.loginService
       .logIn(user)
       .subscribe(
         () => {
@@ -53,10 +51,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       username: defaultUser.username,
       password: defaultUser.password
     });
-  }
-
-  ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
   }
 
 }
