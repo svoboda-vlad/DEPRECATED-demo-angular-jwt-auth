@@ -1,18 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'daja-currency-code-add',
   templateUrl: './currency-code-add.component.html',
   styleUrls: ['./currency-code-add.component.scss']
 })
-export class CurrencyCodeAddComponent implements OnInit, OnDestroy {
+export class CurrencyCodeAddComponent implements OnInit {
 
   currencyCodeAddError = false;
-  currencyCodeAddSubscription: Subscription;
 
   currencyCodeAddForm = this.fb.group({
     currencyCode: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
@@ -34,7 +32,7 @@ export class CurrencyCodeAddComponent implements OnInit, OnDestroy {
       this.currencyCodeAddForm.get('country')!.value,
       this.currencyCodeAddForm.get('rateQty')!.value
     );
-    this.currencyCodeAddSubscription = this.currencyCodeService
+    this.currencyCodeService
       .postCurrencyCode(currencyCode)
       .subscribe(
         () => {
@@ -43,10 +41,6 @@ export class CurrencyCodeAddComponent implements OnInit, OnDestroy {
         },
         () => this.currencyCodeAddError = true
       );
-  }
-
-  ngOnDestroy(): void {
-    this.currencyCodeAddSubscription.unsubscribe();
   }
 
   get currencyCode() { return this.currencyCodeAddForm.get('currencyCode'); }
