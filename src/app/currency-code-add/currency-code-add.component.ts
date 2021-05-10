@@ -11,6 +11,7 @@ import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-cod
 export class CurrencyCodeAddComponent implements OnInit {
 
   currencyCodeAddError = false;
+  error: Object = null;
 
   currencyCodeAddForm = this.fb.group({
     currencyCode: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
