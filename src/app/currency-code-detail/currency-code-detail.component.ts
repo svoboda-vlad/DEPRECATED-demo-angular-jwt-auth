@@ -13,15 +13,14 @@ export class CurrencyCodeDetailComponent implements OnInit {
 
   currencyCode$: Observable<CurrencyCode> = null;
   error: Object = null;
-  id: any;
 
   constructor(private currencyCodeService: CurrencyCodeService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.currencyCode$ = this.currencyCodeService.getCurrencyCode(this.id).pipe(
+      const id = params['id'];
+      this.currencyCode$ = this.currencyCodeService.getCurrencyCode(id).pipe(
         catchError(err => {
           this.error = err;
           return throwError(err);
