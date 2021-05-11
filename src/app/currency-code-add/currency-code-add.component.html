@@ -25,7 +25,7 @@
 
   <div class="form-group">
     <label for="rateQty">Rate Quantity</label>
-    <input type="text" class="form-control" formControlName="rateQty" />
+    <input type="number" class="form-control" formControlName="rateQty" />
     <div *ngIf="rateQty.invalid && (rateQty.dirty || rateQty.touched)" class="alert alert-danger">
       <div *ngIf="rateQty.errors.required || rateQty.errors.min">
         Rate Quantity must be a number greater than 0.

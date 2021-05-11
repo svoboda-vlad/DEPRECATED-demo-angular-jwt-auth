@@ -6,7 +6,7 @@
   <form class="form" (ngSubmit)="addNewExchangeRate()" [formGroup]="exchangeRateAddForm">
     <div class="form-group">
       <label for="rateDate">Rate Date</label>
-      <input type="text" class="form-control" formControlName="rateDate" />
+      <input type="date" class="form-control" formControlName="rateDate" />
       <div *ngIf="rateDate.invalid && (rateDate.dirty || rateDate.touched)" class="alert alert-danger">
         <div *ngIf="rateDate.errors.required">
           Rate Date is required.
@@ -16,7 +16,7 @@
 
     <div class="form-group">
       <label for="rate">Rate</label>
-      <input type="text" class="form-control" formControlName="rate" />
+      <input type="number" class="form-control" formControlName="rate" />
       <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="alert alert-danger">
         <div *ngIf="rate.errors.required || rate.errors.min">
           Rate must be a number greater than 0.
