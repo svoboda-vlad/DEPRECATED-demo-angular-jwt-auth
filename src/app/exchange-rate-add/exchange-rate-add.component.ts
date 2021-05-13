@@ -52,7 +52,7 @@ export class ExchangeRateAddComponent implements OnInit {
       .subscribe(
         () => {
           this.exchangeRateAddError = false;
-          this.router.navigate(['/currency-code', this.currencyCode.id]);
+          this.router.navigate(['/exchange-rate/currency-code', this.currencyCode.id]);
         },
         () => this.exchangeRateAddError = true
       );

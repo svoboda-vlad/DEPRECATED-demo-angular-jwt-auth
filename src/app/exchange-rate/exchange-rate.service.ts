@@ -11,6 +11,7 @@ import { ErrorResponseService } from '../shared/error-response.service';
 })
 export class ExchangeRateService {
   exchangeRateUrl = 'exchange-rate';
+  exchangeRateByCurrencyCodeUrl = 'exchange-rate/currency-code';
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
@@ -23,6 +24,11 @@ export class ExchangeRateService {
 
   postExchangeRate(exchangeRate: ExchangeRate) : Observable<ExchangeRate> {
     return this.http.post<ExchangeRate>(environment.SERVER_URL + this.exchangeRateUrl, exchangeRate).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  getExchangeRatesByCurrencyCode(currencyCode: CurrencyCode) : Observable<ExchangeRate[]> {
+    return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateByCurrencyCodeUrl + '/' + currencyCode.id).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
