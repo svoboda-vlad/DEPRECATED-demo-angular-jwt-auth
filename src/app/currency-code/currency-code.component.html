@@ -7,7 +7,6 @@
     <table class="table table-sm">
       <thead>
         <tr class="table-secondary">
-          <th scope="col">ID</th>
           <th scope="col">Currency Code</th>
           <th scope="col">Country</th>
           <th scope="col">Rate Qty</th>
@@ -15,8 +14,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let currencyCode of currencyCodes">
-          <td><a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.id }}</a></td>
-          <td>{{ currencyCode.currencyCode }}</td>
+          <td><a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.currencyCode }}</a></td>
           <td>{{ currencyCode.country }}</td>
           <td>{{ currencyCode.rateQty }}</td>
         </tr>

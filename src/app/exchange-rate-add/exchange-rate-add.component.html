@@ -1,5 +1,6 @@
 <h2>Add Exchange Rate</h2>
 <div *ngIf="currencyCode; else loadingOrError">
+  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.currencyCode }}</a></div>
   <div class="alert alert-danger" *ngIf="exchangeRateAddError">
     <strong>Failed to add new exchange rate!</strong> Please check the data.
   </div>

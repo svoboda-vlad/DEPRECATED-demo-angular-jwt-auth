@@ -15,8 +15,9 @@ export class ExchangeRateService {
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
-  getExchangeRates() : Observable<ExchangeRate[]> {
-    return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateUrl).pipe(
+  getExchangeRatesByDate(date: Date) : Observable<ExchangeRate[]> {
+    const formattedDate = date.toISOString().slice(0, 10);
+    return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateUrl + '/' + formattedDate).pipe(
       catchError(this.errorResponseService.handleError));
   }
 

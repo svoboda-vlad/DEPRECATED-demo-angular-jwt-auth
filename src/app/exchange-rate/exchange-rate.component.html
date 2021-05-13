@@ -1,10 +1,22 @@
 <h2>Exchange Rates</h2>
 <div *ngIf="exchangeRates$ | async as exchangeRates; else loadingOrError">
+  <form class="form" (ngSubmit)="getExchangeRatesByDate()" [formGroup]="exchangeRateDateFilterForm">
+    <div class="form-group">
+      <label for="rateDate">Rate Date</label>
+      <input type="date" class="form-control" formControlName="rateDate" />
+      <div *ngIf="rateDate.invalid && (rateDate.dirty || rateDate.touched)" class="alert alert-danger">
+        <div *ngIf="rateDate.errors.required">
+          Rate Date is required.
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="exchangeRateDateFilterForm.invalid">Filter</button>
+  </form>
+
   <div class="table-responsive-sm" *ngIf="exchangeRates.length > 0; else notFound">
     <table class="table table-sm">
       <thead>
         <tr class="table-secondary">
-          <th scope="col">ID</th>
           <th scope="col">Country</th>
           <th scope="col">Currency Code</th>
           <th scope="col">Rate Qty</th>
@@ -14,7 +26,6 @@
       </thead>
       <tbody>
         <tr *ngFor="let exchangeRate of exchangeRates">
-          <td>{{ exchangeRate.id }}</td>
           <td>{{ exchangeRate.currencyCode.country }}</td>
           <td>{{ exchangeRate.currencyCode.currencyCode }}</td>
           <td>{{ exchangeRate.currencyCode.rateQty }}</td>
