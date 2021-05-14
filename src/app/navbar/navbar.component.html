@@ -12,12 +12,6 @@
         <li class="nav-item">
           <a routerLink="/" class="nav-link">Home</a>
         </li>
-        <li class="nav-item">
-          <a routerLink="/hello" class="nav-link" routerLinkActive="active">Hello</a>
-        </li>
-        <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/hello-restricted" class="nav-link" routerLinkActive="active">Hello (restricted)</a>
-        </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a routerLink="/currency-code" class="nav-link" routerLinkActive="active">Currency code</a>
         </li>

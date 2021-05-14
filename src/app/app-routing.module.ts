@@ -8,14 +8,6 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'hello',
-    loadChildren: () => import('./hello/hello.module').then(m => m.HelloModule)
-  },
-  {
-    path: 'hello-restricted',
-    loadChildren: () => import('./hello-restricted/hello-restricted.module').then(m => m.HelloRestrictedModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
