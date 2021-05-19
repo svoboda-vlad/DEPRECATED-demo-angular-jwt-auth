@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService, LoginCredentials } from './login.service';
 import { Router } from '@angular/router';
 import { CurrentUserService } from '../current-user/current-user.service';
+import { concatMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'daja-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginError = false;
+  loginSubscription: Subscription;
 
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
@@ -24,7 +27,7 @@ export class LoginComponent implements OnInit {
     private currentUserService: CurrentUserService) { }
 
   ngOnInit(): void {
-    if(this.loginService.getJwtToken()) {
+    if (this.loginService.getJwtToken()) {
       this.router.navigate(['']);
     }
   }
@@ -34,15 +37,15 @@ export class LoginComponent implements OnInit {
       this.loginForm.get('username')!.value,
       this.loginForm.get('password')!.value
     );
-    this.loginService
+    this.loginSubscription = this.loginService
       .logIn(user)
-      .subscribe(
-        () => {
-          this.loginError = false;
-          this.currentUserService.getCurrentUser().subscribe(() => this.router.navigate(['']));
-        },
-        () => this.loginError = true
-      );
+      .pipe(
+        concatMap(() => this.currentUserService.getCurrentUser())
+      ).subscribe(() => {
+        this.loginError = false;
+        this.router.navigate(['']);
+      },
+      () => this.loginError = true);
   }
 
   useDefaultCredentials(): void {
@@ -51,6 +54,11 @@ export class LoginComponent implements OnInit {
       username: defaultUser.username,
       password: defaultUser.password
     });
+  }
+
+  ngOnDestroy() {
+    if(this.loginSubscription != null)
+    this.loginSubscription.unsubscribe();
   }
 
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
 import { ExchangeRate, ExchangeRateService } from '../exchange-rate/exchange-rate.service';
 
@@ -10,11 +11,13 @@ import { ExchangeRate, ExchangeRateService } from '../exchange-rate/exchange-rat
   templateUrl: './exchange-rate-add.component.html',
   styleUrls: ['./exchange-rate-add.component.scss']
 })
-export class ExchangeRateAddComponent implements OnInit {
+export class ExchangeRateAddComponent implements OnInit, OnDestroy {
 
   exchangeRateAddError = false;
   currencyCodeError: Object = null;
   currencyCode: CurrencyCode = null;
+  currencyCodeSubscription: Subscription;
+  exchangeRateAddSubscription: Subscription;
 
   exchangeRateAddForm = this.fb.group({
     rateDate: [null, [Validators.required]],
@@ -29,16 +32,17 @@ export class ExchangeRateAddComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.currencyCodeSubscription = this.route.params.pipe(concatMap(params => {
       const id = params['id'];
-      this.currencyCodeService.getCurrencyCode(id).subscribe(
-        currCode => this.currencyCode = currCode,
-        err => {
-          this.currencyCodeError = err;
-          return throwError(err);
-        }
-      )
-    });
+      return this.currencyCodeService.getCurrencyCode(id);
+    })
+    ).subscribe(
+      currCode => this.currencyCode = currCode,
+      err => {
+        this.currencyCodeError = err;
+        return throwError(err);
+      }
+    );
   }
 
   addNewExchangeRate(): void {
@@ -47,7 +51,7 @@ export class ExchangeRateAddComponent implements OnInit {
       this.exchangeRateAddForm.get('rate')!.value,
       this.currencyCode
     );
-    this.exchangeRateService
+    this.exchangeRateAddSubscription = this.exchangeRateService
       .postExchangeRate(exchangeRate)
       .subscribe(
         () => {
@@ -61,5 +65,10 @@ export class ExchangeRateAddComponent implements OnInit {
   get rateDate() { return this.exchangeRateAddForm.get('rateDate'); }
 
   get rate() { return this.exchangeRateAddForm.get('rate'); }
+
+  ngOnDestroy() {
+    this.currencyCodeSubscription.unsubscribe();
+    if (this.exchangeRateAddSubscription != null) this.exchangeRateAddSubscription.unsubscribe();
+  }  
 
 }
