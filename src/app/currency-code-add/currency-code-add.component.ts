@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
 
 @Component({
@@ -8,10 +9,11 @@ import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-cod
   templateUrl: './currency-code-add.component.html',
   styleUrls: ['./currency-code-add.component.scss']
 })
-export class CurrencyCodeAddComponent implements OnInit {
+export class CurrencyCodeAddComponent implements OnInit, OnDestroy {
 
   currencyCodeAddError = false;
   error: Object = null;
+  currencyCodeAddSubscription: Subscription;
 
   currencyCodeAddForm = this.fb.group({
     currencyCode: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
@@ -33,7 +35,7 @@ export class CurrencyCodeAddComponent implements OnInit {
       this.currencyCodeAddForm.get('country')!.value,
       this.currencyCodeAddForm.get('rateQty')!.value
     );
-    this.currencyCodeService
+    this.currencyCodeAddSubscription = this.currencyCodeService
       .postCurrencyCode(currencyCode)
       .subscribe(
         () => {
@@ -49,5 +51,9 @@ export class CurrencyCodeAddComponent implements OnInit {
   get country() { return this.currencyCodeAddForm.get('country'); }
 
   get rateQty() { return this.currencyCodeAddForm.get('rateQty'); }
+
+  ngOnDestroy() {
+    if (this.currencyCodeAddSubscription != null) this.currencyCodeAddSubscription.unsubscribe();
+  }  
 
 }

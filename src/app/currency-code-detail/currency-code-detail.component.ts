@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
 
@@ -9,16 +9,17 @@ import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-cod
   templateUrl: './currency-code-detail.component.html',
   styleUrls: ['./currency-code-detail.component.scss']
 })
-export class CurrencyCodeDetailComponent implements OnInit {
+export class CurrencyCodeDetailComponent implements OnInit, OnDestroy {
 
   currencyCode$: Observable<CurrencyCode> = null;
   error: Object = null;
+  currencyCodeDetailSubscription: Subscription;
 
   constructor(private currencyCodeService: CurrencyCodeService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.currencyCodeDetailSubscription = this.route.params.subscribe(params => {
       const id = params['id'];
       this.currencyCode$ = this.currencyCodeService.getCurrencyCode(id).pipe(
         catchError(err => {
@@ -28,5 +29,9 @@ export class CurrencyCodeDetailComponent implements OnInit {
       );
     });
   }
+
+  ngOnDestroy() {
+    this.currencyCodeDetailSubscription.unsubscribe();
+  }  
 
 }
