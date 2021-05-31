@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   useDefaultCredentials(): void {
-    const defaultUser: LoginCredentials = new LoginCredentials('user', 'password');
+    const defaultUser: LoginCredentials = new LoginCredentials('user1', 'pass123');
     this.loginForm.patchValue({
       username: defaultUser.username,
       password: defaultUser.password
