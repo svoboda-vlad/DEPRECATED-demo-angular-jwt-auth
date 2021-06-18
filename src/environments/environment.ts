@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  SERVER_URL: 'http://localhost:8080/'
+  SERVER_URL: 'http://localhost:8080/',
+  GOOGLE_CLIENT_ID: '733460469950-9bsam7nba7ljgj7nmhu3td2mrlctvhet.apps.googleusercontent.com',
+  FRONT_END_URL: 'http://localhost:4200/'
 };
 
 /*
