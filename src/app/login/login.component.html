@@ -2,6 +2,9 @@
 <div class="alert alert-danger" *ngIf="loginError">
   <strong>Failed to login!</strong> Please check your username and password.
 </div>
+<button class="btn btn-primary" (click)="logInWithGoogle()">
+  Log In With Google
+</button>
 <button class="btn btn-primary" (click)="useDefaultCredentials()">
   Use default credentials
 </button>
