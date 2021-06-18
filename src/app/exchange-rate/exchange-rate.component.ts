@@ -15,7 +15,7 @@ export class ExchangeRateComponent implements OnInit {
   error: Object = null;
 
   exchangeRateDateFilterForm = this.fb.group({
-    rateDate: [new Date(), [Validators.required]]
+    rateDate: [new Date().toISOString().substring(0,10), [Validators.required]]
   });
 
   constructor(private exchangeRateService: ExchangeRateService, private fb: FormBuilder) { }
