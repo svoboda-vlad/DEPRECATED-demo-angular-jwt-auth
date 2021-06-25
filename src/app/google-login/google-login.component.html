@@ -1,0 +1,11 @@
+<div *ngIf="googleLogin$ | async; else loadingOrError">
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { Observable, Subscription, throwError } from 'rxjs';
+import { catchError, concatMap, map } from 'rxjs/operators';
 import { CurrentUserService } from '../current-user/current-user.service';
 import { GoogleLoginService, IdTokenGoogle } from './google-login.service';
 
@@ -13,8 +13,8 @@ import { GoogleLoginService, IdTokenGoogle } from './google-login.service';
 export class GoogleLoginComponent implements OnInit {
 
   accessTokenKey = "access_token";
-  googleLoginError = false;
-  googleLoginSubscription: Subscription;
+  error: Object = null;
+  googleLogin$: Observable<void> = null;
 
   constructor(private router: Router,
     private googleLoginService: GoogleLoginService,
@@ -32,16 +32,21 @@ export class GoogleLoginComponent implements OnInit {
     localStorage.setItem(this.accessTokenKey, accessToken);
     const idTokenGoogle: IdTokenGoogle = new IdTokenGoogle(idToken);
 
-    this.googleLoginSubscription = this.googleLoginService
+    this.googleLogin$ = this.googleLoginService
       .logIn(idTokenGoogle)
       .pipe(
-        concatMap(() => this.currentUserService.getCurrentUser())
-      ).subscribe(() => {
-        this.googleLoginError = false;
-        this.router.navigate(['']);
-      },
-      () => this.googleLoginError = true);
-
+        concatMap(
+          () => this.currentUserService.getCurrentUser().pipe(
+            map(() => {
+              this.router.navigate(['']);
+             })
+             )
+          ),
+          catchError(err => {
+            this.error = err;
+            return throwError(err);
+          })
+      );
   }
 
 }
