@@ -24,9 +24,13 @@ export class RegistrationUserService {
 export class RegistrationUser {
   username: string;
   password: string;
+  givenName: string;
+  familyName: string;
 
-  constructor(username: string, password: string) {
+  constructor(username: string, password: string, givenName: string, familyName: string) {
     this.username = username;
     this.password = password;
+    this.givenName = givenName;
+    this.familyName = familyName;
   }
 }

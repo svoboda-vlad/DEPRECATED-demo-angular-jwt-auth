@@ -17,8 +17,10 @@ export class RegistrationUserComponent implements OnInit, OnDestroy {
   registrationUserSubscription: Subscription;
 
   registrationUserForm = this.fb.group({
-    username: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    password: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(100)]]
+    username: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+    password: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(100)]],
+    givenName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+    familyName: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]]
   });
 
   constructor(private fb: FormBuilder,
@@ -35,7 +37,9 @@ export class RegistrationUserComponent implements OnInit, OnDestroy {
   register(): void {
     const registrationUser: RegistrationUser = new RegistrationUser(
       this.registrationUserForm.get('username')!.value,
-      this.registrationUserForm.get('password')!.value
+      this.registrationUserForm.get('password')!.value,
+      this.registrationUserForm.get('givenName')!.value,
+      this.registrationUserForm.get('familyName')!.value
     );
     this.registrationUserSubscription = this.registrationUserService
       .registerUser(registrationUser)
@@ -55,6 +59,10 @@ export class RegistrationUserComponent implements OnInit, OnDestroy {
   get username() { return this.registrationUserForm.get('username'); }
 
   get password() { return this.registrationUserForm.get('password'); }
+
+  get givenName() { return this.registrationUserForm.get('givenName'); }
+
+  get familyName() { return this.registrationUserForm.get('familyName'); }
 
   ngOnDestroy() {
     if (this.registrationUserSubscription != null) this.registrationUserSubscription.unsubscribe();
