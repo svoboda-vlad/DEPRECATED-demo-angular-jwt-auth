@@ -36,4 +36,6 @@ export class CurrentUser {
   username: string;
   lastLoginDateTime: Date;
   previousLoginDateTime: Date;
+  givenName: Date;
+  familyName: Date;
 }

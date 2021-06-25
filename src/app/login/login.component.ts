@@ -49,14 +49,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       () => this.loginError = true);
   }
 
-  useDefaultCredentials(): void {
-    const defaultUser: LoginCredentials = new LoginCredentials('user1', 'pass123');
-    this.loginForm.patchValue({
-      username: defaultUser.username,
-      password: defaultUser.password
-    });
-  }
-
   ngOnDestroy() {
     if(this.loginSubscription != null)
     this.loginSubscription.unsubscribe();

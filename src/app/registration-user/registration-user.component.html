@@ -8,7 +8,7 @@
     <input type="text" class="form-control" formControlName="username" />
     <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
       <div *ngIf="username.errors.required || username.errors.minlength || username.errors.maxlength">
-        Username must be between 1 and 50 characters long.
+        Username must be between 1 and 255 characters long.
       </div>
     </div>
   </div>
@@ -19,6 +19,26 @@
     <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
       <div *ngIf="password.errors.required || password.errors.minlength || password.errors.maxlength">
         Password must be between 4 and 100 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="givenName">Given Name</label>
+    <input type="text" class="form-control" formControlName="givenName" />
+    <div *ngIf="givenName.invalid && (givenName.dirty || givenName.touched)" class="alert alert-danger">
+      <div *ngIf="givenName.errors.required || givenName.errors.minlength || givenName.errors.maxlength">
+        Given name must be between 1 and 255 characters long.
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="familyName">Family Name</label>
+    <input type="text" class="form-control" formControlName="familyName" />
+    <div *ngIf="familyName.invalid && (familyName.dirty || familyName.touched)" class="alert alert-danger">
+      <div *ngIf="familyName.errors.required || familyName.errors.minlength || familyName.errors.maxlength">
+        Family name must be between 1 and 255 characters long.
       </div>
     </div>
   </div>
