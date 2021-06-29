@@ -1,5 +1,11 @@
 <h2>Home</h2>
-<div class="alert alert-success" *ngIf="currentUser$ | async as currentUser">
+<div class="alert alert-success" *ngIf="currentUser$ | async as currentUser; else loadingOrError">
   <div>Logged in as user {{ currentUser.givenName }} {{ currentUser.familyName }} ({{ currentUser.username }}).</div>
   <div>Previous login {{ currentUser.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}.</div>
 </div>
+
+<ng-template #loadingOrError>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
