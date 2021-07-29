@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { CurrentUserService, CurrentUser } from '../current-user/current-user.service';
+import { CurrentUserService, User } from '../current-user/current-user.service';
 
 @Component({
   selector: 'daja-home',
@@ -11,7 +11,7 @@ import { CurrentUserService, CurrentUser } from '../current-user/current-user.se
 })
 export class HomeComponent implements OnInit {
 
-  currentUser$: Observable<CurrentUser | boolean> = null;
+  currentUser$: Observable<User | boolean> = null;
 
   constructor(private router: Router, private currentUserService: CurrentUserService) { }
 

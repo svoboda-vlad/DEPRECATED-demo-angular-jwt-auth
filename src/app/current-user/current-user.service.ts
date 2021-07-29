@@ -11,13 +11,13 @@ import { ErrorResponseService } from '../shared/error-response.service';
 export class CurrentUserService {
 
   private currentUserUrl = 'current-user';
-  private currentUser: CurrentUser = null;
+  private currentUser: User = null;
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
-  getCurrentUser() : Observable<CurrentUser> {
-    return this.http.get<CurrentUser>(environment.SERVER_URL + this.currentUserUrl)
+  getCurrentUser() : Observable<User> {
+    return this.http.get<User>(environment.SERVER_URL + this.currentUserUrl)
     .pipe(map(res => this.currentUser = res),
     catchError(this.errorResponseService.handleError));
   }
@@ -26,16 +26,29 @@ export class CurrentUserService {
     return this.currentUser !== null;
   }
 
+  isAdmin(): boolean {
+    return this.currentUser.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
+  }
+
   logOut(): void {
     this.currentUser = null;
   }
 
 }
 
-export class CurrentUser {
+export class User {
   username: string;
   lastLoginDateTime: Date;
   previousLoginDateTime: Date;
   givenName: Date;
   familyName: Date;
+  userRoles: UserRoles[];
+}
+
+export class UserRoles {
+  role: Role;
+}
+
+export class Role {
+  name: string;
 }
