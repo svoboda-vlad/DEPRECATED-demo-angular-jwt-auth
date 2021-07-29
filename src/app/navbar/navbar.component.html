@@ -19,7 +19,9 @@
           <a routerLink="/exchange-rate" class="nav-link" routerLinkActive="active">Exchange Rate</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/admin/users" class="nav-link" routerLinkActive="active">Admin - Users</a>
+          <span *ngIf="isAdmin()">
+            <a routerLink="/admin/users" class="nav-link" routerLinkActive="active">Admin - Users</a>
+          </span>
         </li>
         <li class="nav-item">
           <span [ngSwitch]="isLoggedIn()">

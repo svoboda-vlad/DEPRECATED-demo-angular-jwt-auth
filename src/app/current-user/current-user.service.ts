@@ -26,6 +26,10 @@ export class CurrentUserService {
     return this.currentUser !== null;
   }
 
+  isAdmin(): boolean {
+    return this.currentUser.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
+  }
+
   logOut(): void {
     this.currentUser = null;
   }
