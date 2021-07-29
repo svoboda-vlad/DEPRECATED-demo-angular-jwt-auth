@@ -26,7 +26,12 @@ const routes: Routes = [
   {
     path: 'google-login',
     loadChildren: () => import('./google-login/google-login.module').then(m => m.GoogleLoginModule)
-  }];
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

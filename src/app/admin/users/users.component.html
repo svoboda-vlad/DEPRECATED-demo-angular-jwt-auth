@@ -1,0 +1,37 @@
+<h2>Users</h2>
+<div *ngIf="users$ | async as users; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="users.length > 0; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">Username</th>
+          <th scope="col">Last Login</th>
+          <th scope="col">Previous Login</th>
+          <th scope="col">Given Name</th>
+          <th scope="col">Family Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.lastLoginDateTime  | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+          <td>{{ user.givenName }}</td>
+          <td>{{ user.familyName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No records found.</div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
