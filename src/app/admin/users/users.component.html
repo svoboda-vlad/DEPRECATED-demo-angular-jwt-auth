@@ -20,7 +20,7 @@
           <td>{{ user.givenName }}</td>
           <td>{{ user.familyName }}</td>
           <td>
-            <span *ngFor="let userRoles of user.userRoles">{{ userRoles.role.name }}</span>
+            <span *ngFor="let userRoles of user.userRoles; let i = index"><span *ngIf="i>0">, </span>{{ userRoles.role.name }}</span>
           </td>
         </tr>
       </tbody>
