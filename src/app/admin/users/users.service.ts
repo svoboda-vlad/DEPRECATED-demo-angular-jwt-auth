@@ -28,4 +28,13 @@ export class User {
   previousLoginDateTime: Date;
   givenName: Date;
   familyName: Date;
+  userRoles: UserRoles[];
+}
+
+export class UserRoles {
+  role: Role;
+}
+
+export class Role {
+  name: string;
 }
