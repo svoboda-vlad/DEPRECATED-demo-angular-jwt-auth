@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { User } from 'src/app/current-user/current-user.service';
 import { ErrorResponseService } from 'src/app/shared/error-response.service';
 import { environment } from 'src/environments/environment';
 
@@ -20,21 +21,4 @@ export class UsersService {
       catchError(this.errorResponseService.handleError));
   }
 
-}
-
-export class User {
-  username: string;
-  lastLoginDateTime: Date;
-  previousLoginDateTime: Date;
-  givenName: Date;
-  familyName: Date;
-  userRoles: UserRoles[];
-}
-
-export class UserRoles {
-  role: Role;
-}
-
-export class Role {
-  name: string;
 }

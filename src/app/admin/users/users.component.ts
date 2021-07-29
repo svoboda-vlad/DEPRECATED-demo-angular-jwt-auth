@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User, UsersService } from './users.service';
+import { User } from 'src/app/current-user/current-user.service';
+import { UsersService } from './users.service';
 
 @Component({
   selector: 'daja-users',
