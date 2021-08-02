@@ -1,6 +1,6 @@
 <h2>Exchange Rates</h2>
 <div *ngIf="exchangeRates$ | async as exchangeRates; else loadingOrError">
-  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.currencyCode }}</a></div>
+  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id, 'detail']">{{ currencyCode.currencyCode }}</a></div>
 
   <div class="table-responsive-sm" *ngIf="exchangeRates.length > 0; else notFound">
     <table class="table table-sm">

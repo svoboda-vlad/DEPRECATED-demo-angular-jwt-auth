@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
 
 @Component({
@@ -14,6 +15,8 @@ export class CurrencyCodeEditComponent implements OnInit, OnDestroy {
   currencyCodeUpdateError = false;
   error: Object = null;
   currencyCodeUpdateSubscription: Subscription;
+  currencyCodeDetailSubscription: Subscription;
+  currencyCodeObject: CurrencyCode = null;
 
   currencyCodeEditForm = this.fb.group({
     currencyCode: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
@@ -23,10 +26,26 @@ export class CurrencyCodeEditComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private currencyCodeService: CurrencyCodeService
+    private currencyCodeService: CurrencyCodeService, private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.currencyCodeDetailSubscription = this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.currencyCodeService.getCurrencyCode(id).pipe(
+        catchError(err => {
+          this.error = err;
+          return throwError(err);
+        })
+      ).subscribe(code => {
+        this.currencyCodeObject = code;
+        this.currencyCodeEditForm.patchValue({
+          currencyCode: code.currencyCode,
+          country: code.country,
+          rateQty: code.rateQty
+        });
+      });
+    });
   }
 
   updateCurrencyCode(): void {
@@ -35,6 +54,7 @@ export class CurrencyCodeEditComponent implements OnInit, OnDestroy {
       this.currencyCodeEditForm.get('country')!.value,
       this.currencyCodeEditForm.get('rateQty')!.value
     );
+    currencyCode.id = this.currencyCodeObject.id;
     this.currencyCodeUpdateSubscription = this.currencyCodeService
       .updateCurrencyCode(currencyCode)
       .subscribe(
@@ -53,6 +73,7 @@ export class CurrencyCodeEditComponent implements OnInit, OnDestroy {
   get rateQty() { return this.currencyCodeEditForm.get('rateQty'); }
 
   ngOnDestroy() {
+    this.currencyCodeDetailSubscription.unsubscribe();
     if (this.currencyCodeUpdateSubscription != null) this.currencyCodeUpdateSubscription.unsubscribe();
   }
 

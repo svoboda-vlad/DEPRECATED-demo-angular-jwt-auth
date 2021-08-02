@@ -35,7 +35,7 @@ export class CurrencyCodeService {
   }
 
   updateCurrencyCode(currencyCode: CurrencyCode) : Observable<CurrencyCode> {
-    return this.http.put<CurrencyCode>(environment.SERVER_URL + this.currencyCodeUrl, currencyCode).pipe(
+    return this.http.put<CurrencyCode>(environment.SERVER_URL + this.currencyCodeUrl + "/" + currencyCode.id, currencyCode).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
