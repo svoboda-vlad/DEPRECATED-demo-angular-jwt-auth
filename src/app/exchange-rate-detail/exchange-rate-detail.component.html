@@ -1,0 +1,47 @@
+<h2>Exchange Rate Detail</h2>
+<div *ngIf="exchangeRate$ | async as exchangeRate; else loadingOrError">
+  <div>
+    <button class="btn btn-primary m-1" [routerLink]="['/exchange-rate', exchangeRate.id, 'edit']">Edit</button>
+    <button class="btn btn-primary m-1" (click)="deleteExchangeRate(exchangeRate.id)">Delete</button>
+  </div>
+  <div class="table-responsive-sm" *ngIf="exchangeRate; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td>{{ exchangeRate.id }}</td>
+        </tr>
+        <tr>
+          <th>Rate Date</th>
+          <td>{{ exchangeRate.rateDate | date:'d.M.yyyy' }}</td>
+        </tr>
+        <tr>
+          <th>Rate</th>
+          <td>{{ exchangeRate.rate }}</td>
+        </tr>
+        <tr>
+          <th>Currency Code</th>
+          <td>{{ exchangeRate.currencyCode.currencyCode }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No record found.</div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

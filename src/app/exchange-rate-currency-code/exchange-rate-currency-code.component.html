@@ -1,6 +1,6 @@
 <h2>Exchange Rates</h2>
 <div *ngIf="exchangeRates$ | async as exchangeRates; else loadingOrError">
-  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.currencyCode }}</a></div>
+  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id, 'detail']">{{ currencyCode.currencyCode }}</a></div>
 
   <div class="table-responsive-sm" *ngIf="exchangeRates.length > 0; else notFound">
     <table class="table table-sm">
@@ -11,6 +11,7 @@
           <th scope="col">Rate Qty</th>
           <th scope="col">Rate Date</th>
           <th scope="col">Rate</th>
+          <th scope="col">Detail</th>
         </tr>
       </thead>
       <tbody>
@@ -18,8 +19,9 @@
           <td>{{ exchangeRate.currencyCode.country }}</td>
           <td>{{ exchangeRate.currencyCode.currencyCode }}</td>
           <td>{{ exchangeRate.currencyCode.rateQty }}</td>
-          <td>{{ exchangeRate.rateDate }}</td>
+          <td>{{ exchangeRate.rateDate | date:'d.M.yyyy' }}</td>
           <td>{{ exchangeRate.rate }}</td>
+          <td><a [routerLink]="['/exchange-rate', exchangeRate.id, 'detail']">DETAIL</a></td>
         </tr>
       </tbody>
     </table>

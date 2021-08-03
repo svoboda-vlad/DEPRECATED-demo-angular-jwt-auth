@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CurrencyCode, CurrencyCodeService } from '../currency-code/currency-code.service';
@@ -14,8 +14,10 @@ export class CurrencyCodeDetailComponent implements OnInit, OnDestroy {
   currencyCode$: Observable<CurrencyCode> = null;
   error: Object = null;
   currencyCodeDetailSubscription: Subscription;
+  deleteCurrencyCodeSubscription: Subscription;
+  deleteError: Object = null;
 
-  constructor(private currencyCodeService: CurrencyCodeService, private route: ActivatedRoute) {
+  constructor(private currencyCodeService: CurrencyCodeService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,6 +34,16 @@ export class CurrencyCodeDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.currencyCodeDetailSubscription.unsubscribe();
-  }  
+    if (this.deleteCurrencyCodeSubscription != null) this.deleteCurrencyCodeSubscription.unsubscribe();
+  }
+
+  deleteCurrencyCode(id: number) {
+    this.deleteCurrencyCodeSubscription = this.currencyCodeService.deleteCurrencyCode(id)
+      .subscribe(() => {
+        this.deleteError = false;
+        this.router.navigate(['/currency-code']);
+      },
+      () => this.deleteError = true);
+  }
 
 }

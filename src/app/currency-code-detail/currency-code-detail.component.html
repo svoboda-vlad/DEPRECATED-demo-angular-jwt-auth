@@ -1,5 +1,9 @@
 <h2>Currency Code Detail</h2>
 <div *ngIf="currencyCode$ | async as currencyCode; else loadingOrError">
+  <div>
+    <button class="btn btn-primary m-1" [routerLink]="['/currency-code', currencyCode.id, 'edit']">Edit</button>
+    <button class="btn btn-primary m-1" (click)="deleteCurrencyCode(currencyCode.id)">Delete</button>
+  </div>
   <div class="table-responsive-sm" *ngIf="currencyCode; else notFound">
     <table class="table table-sm">
       <thead>
@@ -31,11 +35,10 @@
   <ng-template #notFound>
     <div class="alert alert-warning">No record found.</div>
   </ng-template>
+  <h5>Exchange Rates</h5>
   <div>
-    <button class="btn btn-primary" routerLink="exchange-rate/add">Add Exchange Rate</button>
-  </div>
-  <div>
-    <button class="btn btn-primary" [routerLink]="['/exchange-rate','currency-code',currencyCode.id]">Show Exchange Rates</button>
+    <button class="btn btn-primary m-1" [routerLink]="['/exchange-rate', 'currency-code', currencyCode.id]">Show Exchange Rates</button>
+    <button class="btn btn-primary m-1" [routerLink]="['/currency-code', currencyCode.id, 'exchange-rate', 'add']">Add Exchange Rate</button>
   </div>
 </div>
 

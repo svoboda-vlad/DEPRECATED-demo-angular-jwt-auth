@@ -1,10 +1,9 @@
-<h2>Add Exchange Rate</h2>
-<div *ngIf="currencyCode; else loadingOrError">
-  <div>Currency code: <a [routerLink]="['/currency-code', currencyCode.id, 'detail']">{{ currencyCode.currencyCode }}</a></div>
-  <div class="alert alert-danger" *ngIf="exchangeRateAddError">
-    <strong>Failed to add new exchange rate!</strong> Please check the data.
+<h2>Edit Exchange Rate</h2>
+<div *ngIf="exchangeRate$ | async as exchangeRate; else loadingOrError">
+  <div class="alert alert-danger" *ngIf="exchangeRateUpdateError">
+    <strong>Failed to update exchange rate!</strong> Please check the data.
   </div>
-  <form class="form" (ngSubmit)="addNewExchangeRate()" [formGroup]="exchangeRateAddForm">
+  <form class="form" (ngSubmit)="updateExchangeRate()" [formGroup]="exchangeRateEditForm">
     <div class="form-group">
       <label for="rateDate">Rate Date</label>
       <input type="date" class="form-control" formControlName="rateDate" />
@@ -30,8 +29,8 @@
 </div>
 
 <ng-template #loadingOrError>
-  <ng-container *ngIf="currencyCodeError; else loading">
-    <div class="alert alert-danger">{{ currencyCodeError }}</div>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
   </ng-container>
   <ng-template #loading>
     <div>Loading ...</div>

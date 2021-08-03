@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let currencyCode of currencyCodes">
-          <td><a [routerLink]="['/currency-code', currencyCode.id]">{{ currencyCode.currencyCode }}</a></td>
+          <td><a [routerLink]="['/currency-code', currencyCode.id, 'detail']">{{ currencyCode.currencyCode }}</a></td>
           <td>{{ currencyCode.country }}</td>
           <td>{{ currencyCode.rateQty }}</td>
         </tr>

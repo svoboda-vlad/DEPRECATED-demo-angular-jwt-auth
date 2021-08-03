@@ -29,6 +29,16 @@ export class CurrencyCodeService {
       catchError(this.errorResponseService.handleError));
   }
 
+  deleteCurrencyCode(id: number) : Observable<void> {
+    return this.http.delete<void>(environment.SERVER_URL + this.currencyCodeUrl + "/" + id).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  updateCurrencyCode(currencyCode: CurrencyCode) : Observable<CurrencyCode> {
+    return this.http.put<CurrencyCode>(environment.SERVER_URL + this.currencyCodeUrl + "/" + currencyCode.id, currencyCode).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
 }
 
 export class CurrencyCode {
