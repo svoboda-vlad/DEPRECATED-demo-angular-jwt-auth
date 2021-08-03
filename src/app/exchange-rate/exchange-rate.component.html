@@ -29,7 +29,7 @@
           <td>{{ exchangeRate.currencyCode.country }}</td>
           <td>{{ exchangeRate.currencyCode.currencyCode }}</td>
           <td>{{ exchangeRate.currencyCode.rateQty }}</td>
-          <td>{{ exchangeRate.rateDate }}</td>
+          <td>{{ exchangeRate.rateDate | date:'d.M.yyyy' }}</td>
           <td>{{ exchangeRate.rate }}</td>
         </tr>
       </tbody>

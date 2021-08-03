@@ -12,13 +12,14 @@ import { ErrorResponseService } from '../shared/error-response.service';
 export class ExchangeRateService {
   exchangeRateUrl = 'exchange-rate';
   exchangeRateByCurrencyCodeUrl = 'exchange-rate/currency-code';
+  exchangeRateByDateUrl = 'exchange-rate/date';
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
   getExchangeRatesByDate(date: Date) : Observable<ExchangeRate[]> {
     const formattedDate = date.toISOString().slice(0, 10);
-    return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateUrl + '/' + formattedDate).pipe(
+    return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateByDateUrl + '/' + formattedDate).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
@@ -29,6 +30,16 @@ export class ExchangeRateService {
 
   getExchangeRatesByCurrencyCode(currencyCode: CurrencyCode) : Observable<ExchangeRate[]> {
     return this.http.get<ExchangeRate[]>(environment.SERVER_URL + this.exchangeRateByCurrencyCodeUrl + '/' + currencyCode.id).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  getExchangeRate(id: number) : Observable<ExchangeRate> {
+    return this.http.get<ExchangeRate>(environment.SERVER_URL + this.exchangeRateUrl + '/' + id).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  deleteExchangeRate(id: number) : Observable<void> {
+    return this.http.delete<void>(environment.SERVER_URL + this.exchangeRateUrl + '/' + id).pipe(
       catchError(this.errorResponseService.handleError));
   }
 
