@@ -43,6 +43,11 @@ export class ExchangeRateService {
       catchError(this.errorResponseService.handleError));
   }
 
+  updateExchangeRate(exchangeRate: ExchangeRate) : Observable<ExchangeRate> {
+    return this.http.put<ExchangeRate>(environment.SERVER_URL + this.exchangeRateUrl + '/' + exchangeRate.id, exchangeRate).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
 }
 
 export class ExchangeRate {

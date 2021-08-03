@@ -1,0 +1,38 @@
+<h2>Edit Exchange Rate</h2>
+<div *ngIf="exchangeRate$ | async as exchangeRate; else loadingOrError">
+  <div class="alert alert-danger" *ngIf="exchangeRateUpdateError">
+    <strong>Failed to update exchange rate!</strong> Please check the data.
+  </div>
+  <form class="form" (ngSubmit)="updateExchangeRate()" [formGroup]="exchangeRateEditForm">
+    <div class="form-group">
+      <label for="rateDate">Rate Date</label>
+      <input type="date" class="form-control" formControlName="rateDate" />
+      <div *ngIf="rateDate.invalid && (rateDate.dirty || rateDate.touched)" class="alert alert-danger">
+        <div *ngIf="rateDate.errors.required">
+          Rate Date is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rate">Rate</label>
+      <input type="number" class="form-control" formControlName="rate" />
+      <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="alert alert-danger">
+        <div *ngIf="rate.errors.required || rate.errors.min">
+          Rate must be a number greater than 0.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="exchangeRateAddForm.invalid">Save</button>
+  </form>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>
