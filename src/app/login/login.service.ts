@@ -10,9 +10,9 @@ import { ErrorResponseService } from '../shared/error-response.service';
 })
 export class LoginService {
 
-  loginUrl = "login";
-  authorizationHeader = "Authorization";
-  jwtKey = "jwt";
+  loginUrl = 'login';
+  authorizationHeader = 'Authorization';
+  jwtKey = 'jwt';
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
