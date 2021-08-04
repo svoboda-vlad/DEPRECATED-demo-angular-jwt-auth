@@ -10,7 +10,7 @@ import { ErrorResponseService } from '../shared/error-response.service';
 })
 export class CurrentUserService {
 
-  private currentUserUrl = 'current-user';
+  private currentUserUrl = 'user';
   private currentUser: User = null;
 
   constructor(private http: HttpClient,

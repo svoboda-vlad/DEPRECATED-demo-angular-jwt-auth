@@ -9,7 +9,7 @@ import { ErrorResponseService } from '../shared/error-response.service';
   providedIn: 'root'
 })
 export class RegistrationUserService {
-  registrationUserUrl = 'register';
+  registrationUserUrl = 'user';
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
