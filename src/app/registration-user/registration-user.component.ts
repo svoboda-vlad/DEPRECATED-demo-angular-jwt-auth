@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { RegistrationUserService, RegistrationUser } from './registration-user.service';
+import { UserService, RegistrationUser } from '../user/user.service';
 import { Router } from '@angular/router';
 import { LoginCredentials, LoginService } from '../login/login.service';
 import { Subscription } from 'rxjs';
@@ -25,7 +25,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    private registrationUserService: RegistrationUserService,
+    private userService: UserService,
     private loginService: LoginService) { }
 
   ngOnInit(): void {
@@ -41,7 +41,7 @@ export class RegistrationUserComponent implements OnInit, OnDestroy {
       this.registrationUserForm.get('givenName')!.value,
       this.registrationUserForm.get('familyName')!.value
     );
-    this.registrationUserSubscription = this.registrationUserService
+    this.registrationUserSubscription = this.userService
       .registerUser(registrationUser)
       .pipe(concatMap(() =>
         this.loginService.logIn(
