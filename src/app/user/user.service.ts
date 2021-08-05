@@ -10,33 +10,37 @@ import { ErrorResponseService } from '../shared/error-response.service';
 })
 export class UserService {
 
-  private currentUserUrl = 'user';
-  private registrationUserUrl = 'user';
-  private currentUser: User = null;
+  private userUrl = 'user';
+  private user: User = null;
 
   constructor(private http: HttpClient,
     private errorResponseService: ErrorResponseService) { }
 
   getCurrentUser() : Observable<User> {
-    return this.http.get<User>(environment.SERVER_URL + this.currentUserUrl)
-    .pipe(map(res => this.currentUser = res),
+    return this.http.get<User>(environment.SERVER_URL + this.userUrl)
+    .pipe(map(res => this.user = res),
     catchError(this.errorResponseService.handleError));
   }
 
   isLoggedIn(): boolean {
-    return this.currentUser !== null;
+    return this.user !== null;
   }
 
   isAdmin(): boolean {
-    return this.currentUser.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
+    return this.user.userRoles.filter(r => r.role.name == 'ROLE_ADMIN').length != 0;
   }
 
   logOut(): void {
-    this.currentUser = null;
+    this.user = null;
   }
 
   registerUser(registrationUser: RegistrationUser) : Observable<RegistrationUser> {
-    return this.http.post<RegistrationUser>(environment.SERVER_URL + this.registrationUserUrl, registrationUser).pipe(
+    return this.http.post<RegistrationUser>(environment.SERVER_URL + this.userUrl, registrationUser).pipe(
+      catchError(this.errorResponseService.handleError));
+  }
+
+  deleteUser() : Observable<void> {
+    return this.http.delete<void>(environment.SERVER_URL + this.userUrl).pipe(
       catchError(this.errorResponseService.handleError));
   }
 

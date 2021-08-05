@@ -1,0 +1,55 @@
+<h2>User Detail</h2>
+<div *ngIf="user$ | async as user; else loadingOrError">
+  <div class="table-responsive-sm" *ngIf="user; else notFound">
+    <table class="table table-sm">
+      <thead>
+        <tr class="table-secondary">
+          <th scope="col">Name</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Username</th>
+          <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+          <th>Given Name</th>
+          <td>{{ user.givenName }}</td>
+        </tr>
+        <tr>
+          <th>Family Name</th>
+          <td>{{ user.familyName }}</td>
+        </tr>
+        <tr>
+          <th>Last Login</th>
+          <td>{{ user.lastLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+        </tr>
+        <tr>
+          <th>Previous Login</th>
+          <td>{{ user.previousLoginDateTime | date:'yyyy-MM-dd HH:mm' }}</td>
+        </tr>
+        <tr>
+          <th>Roles</th>
+          <td><span *ngFor="let userRoles of user.userRoles; let i = index"><span *ngIf="i>0">, </span>{{ userRoles.role.name }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button class="btn btn-primary m-1" [routerLink]="['/user', user.id, 'edit']">Edit</button>
+      <button class="btn btn-primary m-1" (click)="deleteUser()">Delete</button>
+    </div>
+  </div>
+  <ng-template #notFound>
+    <div class="alert alert-warning">No record found.</div>
+  </ng-template>
+</div>
+
+<ng-template #loadingOrError>
+  <ng-container *ngIf="error; else loading">
+    <div class="alert alert-danger">{{ error }}</div>
+  </ng-container>
+  <ng-template #loading>
+    <div>Loading ...</div>
+  </ng-template>
+</ng-template>

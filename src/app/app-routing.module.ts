@@ -35,6 +35,10 @@ const routes: Routes = [
       role: 'ROLE_ADMIN'
     },
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'user',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   }
 ];
 
