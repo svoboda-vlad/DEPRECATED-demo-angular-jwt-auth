@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CurrentUserService, UserRoles } from '../current-user/current-user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private currentUserService: CurrentUserService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    return this.currentUserService.getCurrentUser().pipe(
+    return this.userService.getCurrentUser().pipe(
       map(user => {
         if (user) {
           const role = route.data['role'];

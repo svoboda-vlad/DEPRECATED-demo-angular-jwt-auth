@@ -1,5 +1,5 @@
 <div class="p-3">
-  <h2>Demo - Angular with JWT authentication</h2>
+  <h2>Demo - Exchange Rates - Spring Boot + Angular + JWT Authentication</h2>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -13,10 +13,13 @@
           <a routerLink="/" class="nav-link">Home</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
-          <a routerLink="/currency-code" class="nav-link" routerLinkActive="active">Currency code</a>
+          <a routerLink="/currency-code" class="nav-link" routerLinkActive="active">Currency Code</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
           <a routerLink="/exchange-rate" class="nav-link" routerLinkActive="active">Exchange Rate</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a routerLink="/user" class="nav-link" routerLinkActive="active">User Info</a>
         </li>
         <li class="nav-item" *ngIf="isLoggedIn()">
           <span *ngIf="isAdmin()">

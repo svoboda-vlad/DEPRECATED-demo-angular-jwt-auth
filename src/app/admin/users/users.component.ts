@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { User } from 'src/app/current-user/current-user.service';
+import { User } from 'src/app/user/user.service';
 import { UsersService } from './users.service';
 
 @Component({

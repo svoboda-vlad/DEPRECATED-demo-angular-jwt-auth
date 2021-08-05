@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService, LoginCredentials } from './login.service';
 import { Router } from '@angular/router';
-import { CurrentUserService } from '../current-user/current-user.service';
+import { UserService } from '../user/user.service';
 import { concatMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private currentUserService: CurrentUserService) { }
+    private userService: UserService) { }
 
   ngOnInit(): void {
     if (this.loginService.getJwtToken()) {
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginSubscription = this.loginService
       .logIn(user)
       .pipe(
-        concatMap(() => this.currentUserService.getCurrentUser())
+        concatMap(() => this.userService.getCurrentUser())
       ).subscribe(() => {
         this.loginError = false;
         this.router.navigate(['']);

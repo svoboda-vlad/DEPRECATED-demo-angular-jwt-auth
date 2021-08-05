@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrentUserService } from '../current-user/current-user.service';
+import { UserService } from '../user/user.service';
 import { LoginService } from '../login/login.service';
 
 @Component({
@@ -11,23 +11,23 @@ import { LoginService } from '../login/login.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private loginService: LoginService,
-    private currentUserService: CurrentUserService,
+    private userService: UserService,
     private router: Router) { }
 
   ngOnInit(): void {
   }
 
   isLoggedIn(): boolean {
-    return this.currentUserService.isLoggedIn();
+    return this.userService.isLoggedIn();
   }
 
   isAdmin(): boolean {
-    return this.currentUserService.isAdmin();
+    return this.userService.isAdmin();
   }
 
   logout(): void {
     this.loginService.logOut();
-    this.currentUserService.logOut();
+    this.userService.logOut();
     this.router.navigate(['/login']);
   }
 

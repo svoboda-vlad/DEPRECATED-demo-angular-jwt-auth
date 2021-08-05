@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, concatMap, map } from 'rxjs/operators';
-import { CurrentUserService } from '../current-user/current-user.service';
+import { UserService } from '../user/user.service';
 import { GoogleLoginService, IdTokenGoogle } from './google-login.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class GoogleLoginComponent implements OnInit {
 
   constructor(private router: Router,
     private googleLoginService: GoogleLoginService,
-    private currentUserService: CurrentUserService) { }
+    private userService: UserService) { }
 
   ngOnInit(): void {
     let accessToken = "";
@@ -36,7 +36,7 @@ export class GoogleLoginComponent implements OnInit {
       .logIn(idTokenGoogle)
       .pipe(
         concatMap(
-          () => this.currentUserService.getCurrentUser().pipe(
+          () => this.userService.getCurrentUser().pipe(
             map(() => {
               this.router.navigate(['']);
              })
